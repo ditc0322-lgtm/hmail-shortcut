@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>하나메일</title>
+
+  <!-- PWA 설정 -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#006747" />
+
+  <!-- iOS 홈 화면 추가용 메타 태그 -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="하나메일" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #006747;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
+    }
+    .wrap {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 16px;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+    }
+    .msg {
+      font-size: 15px;
+      opacity: 0.9;
+    }
+    a.fallback {
+      margin-top: 8px;
+      color: #ffffff;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="logo" src="icons/icon-192.png" alt="하나메일" />
+    <div class="msg">하나메일로 이동 중입니다...</div>
+    <!-- 자동 이동이 안 될 경우를 위한 수동 링크 -->
+    <a class="fallback" href="https://hmail.hanafn.com" rel="noopener">바로 이동하기</a>
+  </div>
+
+  <script>
+    // PWA 설치(홈 화면 추가) 조건을 만족시키기 위한 서비스 워커 등록
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js").catch(() => {});
+    }
+
+    // 바로가기 앱: 실행 즉시 하나메일 웹사이트로 이동
+    // 외부 사이트이므로 iframe 삽입 대신 전체 화면 리다이렉트 방식 사용
+    location.replace("https://hmail.hanafn.com");
+  </script>
+</body>
+</html>
